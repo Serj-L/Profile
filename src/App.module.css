@@ -1,4 +1,35 @@
-.App {
-  color: green;
+.App[data-theme-type='light'] {
+  --clr-text: var(--clr-txt-light);
+  --clr-bg: var(--clr-bg-light);
+  --clr-ui: var(--clr-ui-light);
+  --clr-ui-hover: var(--clr-ui-hover-light);
 }
 
+.App[data-theme-type='dark'] {
+  --clr-text: var(--clr-txt-dark);
+  --clr-bg: var(--clr-bg-dark);
+  --clr-ui: var(--clr-ui-dark);
+  --clr-ui-hover: var(--clr-ui-hover-dark);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: var(--family);
+  font-size: var(--fs-md);
+  color: var(--clr-text);
+  background-color: var(--clr-bg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding: 1.5rem;
+}
