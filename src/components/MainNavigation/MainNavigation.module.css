@@ -1,3 +1,65 @@
 .navList {
   display: flex;
+  gap: 1rem;
 }
+
+.navButtonItem {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.navLinkItem,
+.navButtonItem {
+  font-family: var(--family);
+  font-size: var(--fs-xl);
+  color: var(--clr-text);
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  outline: none;
+  transition: var(--transition-duration);
+}
+
+.navLinkItem[aria-current='page'] {
+  color: var(--clr-purple);
+  cursor: default;
+}
+
+.navLinkItem::before,
+.navButtonItem::before {
+  content: '<';
+}
+
+.navLinkItem::after,
+.navButtonItem::after {
+  content: '/>';
+}
+
+.navLinkItem:not([aria-current='page'])::before,
+.navLinkItem:not([aria-current='page'])::after,
+.navButtonItem::before,
+.navButtonItem::after {
+  opacity: 0;
+}
+
+.navLinkItem:not([aria-current='page']):hover,
+.navLinkItem:not([aria-current='page']):focus,
+.navButtonItem:hover,
+.navButtonItem:focus {
+  color: var(--clr-blue);
+}
+
+.navLinkItem:not([aria-current='page']):hover:before,
+.navLinkItem:not([aria-current='page']):hover:after,
+.navLinkItem:not([aria-current='page']):focus:before,
+.navLinkItem:not([aria-current='page']):focus:after,
+.navButtonItem:hover:before,
+.navButtonItem:hover:after,
+.navButtonItem:focus:before,
+.navButtonItem:focus:after {
+  color: var(--clr-blue);
+  opacity: 1;
+}
+
+

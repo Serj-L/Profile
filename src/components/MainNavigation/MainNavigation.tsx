@@ -49,7 +49,10 @@ const MainNavigation: FC<MainNavigationProps> = ({
               <button
                 className={styles.navButtonItem}
                 key={navButton.title}
-                onClick={navButton.onClickHandler}
+                onClick={(e) => {
+                  e.currentTarget.blur();
+                  navButton.onClickHandler();
+                }}
               >
                 {navButton.title}
               </button>

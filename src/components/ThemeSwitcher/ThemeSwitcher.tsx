@@ -5,22 +5,23 @@ import { ThemeTypes } from '../../types';
 import styles from './ThemeSwitcher.module.css';
 
 interface ThemeSwitcherProps {
-  width: number,
-  height: number,
   themeType: string;
   onClickHandler: () => void;
+  isBigSize?: boolean
 }
 
 const ThemeSwitcher: FC<ThemeSwitcherProps> = ({
   themeType,
   onClickHandler,
-  width,
-  height,
+  isBigSize = false,
 }) => {
   return (
     <div
       className={styles.switcherContainer}
-      style={{ width: width, height: height }}
+      style={{
+        width: isBigSize ? 80 : 60,
+        height: isBigSize ? 40 : 30,
+      }}
     >
       <input
         type="checkbox"
@@ -32,6 +33,7 @@ const ThemeSwitcher: FC<ThemeSwitcherProps> = ({
       <label
         htmlFor="checkbox"
         className={styles.label}
+        style={{ fontSize: isBigSize ? 14 : 10 }}
         onClick = {onClickHandler}
       >
         <span

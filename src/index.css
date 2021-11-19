@@ -7,6 +7,7 @@
   --fs-sm: 14px;
   --fs-md: 18px;
   --fs-lg: 22px;
+  --fs-xl: 28px;
   --fs-xxl: 32px;
   --fw-light: 300;
   --fw-normal: 400;
@@ -15,6 +16,7 @@
   /* colors */
   --clr-white: hsl(0, 0%, 98%);
   --clr-blue: hsl(220, 98%, 61%);
+  --clr-purple: hsl(276, 98%, 61%);
 
   --clr-bg-light: hsl(236, 33%, 92%);
   --clr-txt-light: hsl(235, 19%, 35%);
@@ -28,8 +30,20 @@
 
   /* other */
   --radius: 6px;
-  --shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   --transition-duration: 0.2s;
+
+  --shadow-sm: 0 4px 8px rgba(0,0,0,0.25), 0 3px 3px rgba(0,0,0,0.22);
+  --shadow-md: 0 7px 12px rgba(0,0,0,0.25), 0 6px 6px rgba(0,0,0,0.22);
+  --shadow-lg: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  --shadow-negative-md: 0 -7px 12px rgba(0,0,0,0.25), 0 -6px 6px rgba(0,0,0,0.22);
+
+  --max-width: 1800px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
