@@ -3,6 +3,7 @@
   --clr-text: var(--clr-txt-light);
   --clr-bg: var(--clr-bg-light);
   --clr-ui: var(--clr-ui-light);
+  --clr-ui-border: var(--clr-ui-border-light);
   --clr-ui-hover: var(--clr-ui-hover-light);
 }
 
@@ -10,6 +11,7 @@
   --clr-text: var(--clr-txt-dark);
   --clr-bg: var(--clr-bg-dark);
   --clr-ui: var(--clr-ui-dark);
+  --clr-ui-border: var(--clr-ui-border-dark);
   --clr-ui-hover: var(--clr-ui-hover-dark);
 }
 
@@ -103,58 +105,6 @@ font-weight: var(--fw-bold);
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.btn {
-  align-self: center;
-  width: 6rem;
-  font-family: var(--family);
-  font-size: var(--fs-md);
-  font-weight: var(--fw-bold);
-  line-height: 2;
-  color: var(--clr-text);
-  background: var(--clr-ui);
-  border-radius: var(--radius);
-  border: 2px solid var(--clr-ui-hover);
-  cursor: pointer;
-  transition: var(--transition-duration);
-  position: relative;
-  z-index: 1;
-  outline: none;
-}
-
-.btn:not(:last-child) {
-  margin-right: 0.75rem;
-}
-
-.btn:disabled {
-  border-color: var(--clr-ui);
-  color: var(--clr-ui);
-  cursor: default;
-}
-
-.btn::after {
-  content: "";
-  position: absolute;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  left: -2px;
-  right: 0;
-  top: -2px;
-  bottom: 0;
-  background: var(--clr-blue);
-  border-radius: var(--radius);
-  z-index: -1;
-  transform: scale(0);
-  transition: var(--transition-duration) ease-in;
-}
-
-.btn:not(:disabled):hover,
-.btn:not(:disabled):focus {
-  color: var(--clr-white);
-}
-
-.btn:not(:disabled):hover::after,
-.btn:not(:disabled):focus::after {
-  transform: scale(1);
+  gap: 0.75rem;
+  padding: 0.75rem 0;
 }

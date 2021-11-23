@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { LocalStorageKeys, ThemeTypes, Routes } from './types';
+import { sendUserMessage } from './api/EmalJS';
 import { AppRouter, IRoute } from './router';
 import { AboutMePage, PortfolioPage } from './pages';
 import {
@@ -9,6 +10,8 @@ import {
   INavigationButton,
   SocialsNavigation,
   Modal,
+  Button,
+  ContactForm,
   ThemeSwitcher,
 } from './components';
 
@@ -24,6 +27,7 @@ const routesList: IRoute[] = [
     component: PortfolioPage,
   },
 ];
+
 const navLinksList: INavigationLink[] = [
   {
     title: 'About_Me',
@@ -35,9 +39,17 @@ const navLinksList: INavigationLink[] = [
   },
 ];
 
+const emailValidator: (email: string) => boolean = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim().toLowerCase());
+};
+
 function App() {
   const [themeType, setThemeType] = useState<string>(localStorage.getItem(LocalStorageKeys.THEMETYPE) || ThemeTypes.LIGHT);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userMessage, setUserMessage] = useState<string>('');
+  const [isUserEmailValid, setIsUserEmailValid] = useState<boolean>(true);
 
   const modalOpenHandler = () => {
     setIsModalOpen(!isModalOpen);
@@ -50,6 +62,29 @@ function App() {
   ];
   const themeChangeHandler = () => {
     setThemeType(themeType === ThemeTypes.LIGHT ? ThemeTypes.DARK: ThemeTypes.LIGHT);
+  };
+
+  const cancelBtnHandler = () => {
+    setUserName('');
+    setUserEmail('');
+    setUserMessage('');
+    setIsUserEmailValid(true);
+    setIsModalOpen(false);
+  };
+
+  const sendMessageHandler = async () => {
+    const userFormData = {
+      name: userName.trim(),
+      email: userEmail.trim(),
+      message: userMessage.trim(),
+    };
+    try {
+      const result = await sendUserMessage(userFormData);
+      console.log(result);
+      cancelBtnHandler();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -90,27 +125,37 @@ function App() {
       </footer>
       <Modal
         isModalActive = {isModalOpen}
-        closeModalHandler = {modalOpenHandler}
-        modalTitle = 'Test'
+        closeModalHandler = {cancelBtnHandler}
+        modalTitle = 'Contact form'
       >
         <>
           <div className={styles.modalAppContent}>
-            Modal children test content
+            <ContactForm
+              textAreaTitle={'Message'}
+              userNameInputValue={userName}
+              userEmailInputValue={userEmail}
+              textAreaValue={userMessage}
+              userNameInputOnChangeHandler={(value) => setUserName(value)}
+              userEmailInputOnChangeHandler={(value) => {
+                setUserEmail(value);
+                setIsUserEmailValid(emailValidator(value));
+              }}
+              textAreaInputOnChangeHandler={(value) => setUserMessage(value)}
+              isEmailValid={isUserEmailValid}
+            />
           </div>
           <div className={styles.modalBtnWrapper}>
-            <button
-              className={styles.btn}
-              disabled={false}
-              onClick = {() => console.log('Confirm')}
-            >
-              Confirm
-            </button>
-            <button
-              className={styles.btn}
-              onClick = {() => console.log('Reject')}
-            >
-              Reject
-            </button>
+            <Button
+              title={'Send message'}
+              fontSize={18}
+              isDissabled={false}
+              onClickHandler={sendMessageHandler}
+            />
+            <Button
+              title={'Cancel'}
+              fontSize={18}
+              onClickHandler={cancelBtnHandler}
+            />
           </div>
         </>
       </Modal>

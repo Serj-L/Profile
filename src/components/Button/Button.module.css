@@ -1,0 +1,75 @@
+.btn {
+  align-self: center;
+  min-width: 5.5em;
+  font-family: var(--family);
+  font-weight: var(--fw-bold);
+  line-height: 2;
+  background: var(--clr-ui);
+  padding: 0 0.5em;
+  border-radius: var(--radius);
+  border: 2px solid var(--clr-ui-border);
+  cursor: pointer;
+  transition: var(--transition-duration);
+  position: relative;
+  z-index: 1;
+  outline: none;
+}
+
+.btn[data-is-transparent='true'] {
+  color: var(--clr-text);
+}
+
+.btn[data-is-transparent='false'] {
+  color: var(--clr-white);
+}
+
+.btn:disabled {
+  border-color: var(--clr-ui);
+  color: var(--clr-ui);
+  cursor: default;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  left: -2px;
+  right: 0;
+  top: -2px;
+  bottom: 0;
+  background: var(--clr-blue);
+  border-radius: var(--radius);
+  z-index: -1;
+  transition: var(--transition-duration) ease-in;
+}
+
+.btn[data-is-transparent='true']::after,
+.btn[data-is-transparent='true']::after {
+  transform: scale(0);
+}
+
+.btn[data-is-transparent='true']:not(:disabled):hover::after,
+.btn[data-is-transparent='true']:not(:disabled):focus::after {
+  transform: scale(1);
+}
+
+.btn[data-is-transparent='true']:not(:disabled):hover,
+.btn[data-is-transparent='true']:not(:disabled):focus {
+  color: var(--clr-white);
+}
+
+.btn[data-is-transparent='false']::after,
+.btn[data-is-transparent='false']::after {
+  transform: scale(1);
+}
+
+.btn[data-is-transparent='false']:not(:disabled):hover::after,
+.btn[data-is-transparent='false']:not(:disabled):focus::after {
+  transform: scale(0);
+}
+
+.btn[data-is-transparent='false']:not(:disabled):hover,
+.btn[data-is-transparent='false']:not(:disabled):focus {
+  color: var(--clr-text);
+}

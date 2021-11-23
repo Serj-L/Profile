@@ -65,7 +65,7 @@
 
 .btnClose:hover,
 .btnClose:focus {
-  color: var(--clr-ui-dark);
+  color: var(--clr-red);
 }
 
 .modalContent {

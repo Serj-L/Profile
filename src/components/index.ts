@@ -3,6 +3,8 @@ export type { INavigationLink, INavigationButton } from './MainNavigation/MainNa
 export { default as SocialsNavigation } from './SocialsNavigation/SocialsNavigation';
 export { default as ThemeSwitcher } from './ThemeSwitcher/ThemeSwitcher';
 export { default as Modal } from './Modal/Modal';
+export { default as Button } from './Button/Button';
+export { default as ContactForm } from './ContactForm/ContactForm';
 export { default as CodeWarsIcon } from './Icons/CodeWarsIcon';
 export { default as LinkedInIcon } from './Icons/LinkedInIcon';
 export { default as GitHubIcon } from './Icons/GitHubIcon';
