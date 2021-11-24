@@ -22,7 +22,7 @@
 }
 
 .navLinkItem[aria-current='page'] {
-  color: var(--clr-purple);
+  color: var(--clr-accent);
   cursor: default;
 }
 
@@ -43,23 +43,63 @@
   opacity: 0;
 }
 
-.navLinkItem:not([aria-current='page']):hover,
-.navLinkItem:not([aria-current='page']):focus,
-.navButtonItem:hover,
-.navButtonItem:focus {
-  color: var(--clr-blue);
+@media (hover: hover) and (pointer: fine) {
+  .navLinkItem:not([aria-current='page']):hover,
+  .navLinkItem:not([aria-current='page']):focus,
+  .navButtonItem:hover,
+  .navButtonItem:focus {
+    color: var(--clr-main);
+  }
+
+  .navLinkItem:not([aria-current='page']):hover:before,
+  .navLinkItem:not([aria-current='page']):hover:after,
+  .navLinkItem:not([aria-current='page']):focus:before,
+  .navLinkItem:not([aria-current='page']):focus:after,
+  .navButtonItem:hover:before,
+  .navButtonItem:hover:after,
+  .navButtonItem:focus:before,
+  .navButtonItem:focus:after {
+    color: var(--clr-main);
+    opacity: 1;
+  }
 }
 
-.navLinkItem:not([aria-current='page']):hover:before,
-.navLinkItem:not([aria-current='page']):hover:after,
-.navLinkItem:not([aria-current='page']):focus:before,
-.navLinkItem:not([aria-current='page']):focus:after,
-.navButtonItem:hover:before,
-.navButtonItem:hover:after,
-.navButtonItem:focus:before,
-.navButtonItem:focus:after {
-  color: var(--clr-blue);
-  opacity: 1;
+/* Adaptive */
+@media (max-width: 768px) {
+  .navList {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 2rem;
+    transform: translateX(100%);
+    transition: transform var(--transition-duration);
+    overflow: auto;
+    z-index: 2;
+  }
+
+  .navList[data-is-active='true'] {
+    transform: translateX(0);
+  }
+
+  .navList::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--clr-bg);
+    opacity: 0.95;
+    z-index: -1;
+  }
+
+  .navLinkItem,
+  .navButtonItem {
+    font-size: var(--fs-xxl);
+  }
 }
-
-

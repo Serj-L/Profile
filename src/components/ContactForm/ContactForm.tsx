@@ -59,7 +59,7 @@ const ContactForm: FC<ContactFormProps> = ({
         value = {userEmailInputValue}
         onChange = {(e) => userEmailInputOnChangeHandler(e.currentTarget.value)}
       />
-      <span className={styles.validationMessage}>Please insert a valid e-mail</span>
+      <span className={styles.validationMessage}>Please insert a correct e-mail</span>
       <div
         className={styles.textAreaWrapper}
       >

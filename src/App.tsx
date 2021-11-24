@@ -8,11 +8,13 @@ import {
   MainNavigation,
   INavigationLink,
   INavigationButton,
+  BurgerBtn,
   SocialsNavigation,
   Modal,
   Button,
   ContactForm,
   ThemeSwitcher,
+  SnackBar,
 } from './components';
 
 import styles from './App.module.css';
@@ -50,6 +52,9 @@ function App() {
   const [userEmail, setUserEmail] = useState<string>('');
   const [userMessage, setUserMessage] = useState<string>('');
   const [isUserEmailValid, setIsUserEmailValid] = useState<boolean>(true);
+  const [isSendingMsg, setIsSendingMsg] = useState<boolean>(false);
+  const [snackBarMsg, setSnackBarMsg] = useState<string>('');
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
 
   const modalOpenHandler = () => {
     setIsModalOpen(!isModalOpen);
@@ -63,7 +68,6 @@ function App() {
   const themeChangeHandler = () => {
     setThemeType(themeType === ThemeTypes.LIGHT ? ThemeTypes.DARK: ThemeTypes.LIGHT);
   };
-
   const cancelBtnHandler = () => {
     setUserName('');
     setUserEmail('');
@@ -71,19 +75,23 @@ function App() {
     setIsUserEmailValid(true);
     setIsModalOpen(false);
   };
-
   const sendMessageHandler = async () => {
     const userFormData = {
       name: userName.trim(),
       email: userEmail.trim(),
       message: userMessage.trim(),
     };
+
     try {
-      const result = await sendUserMessage(userFormData);
-      console.log(result);
+      setIsSendingMsg(true);
+      await sendUserMessage(userFormData);
+      setSnackBarMsg('Your message was send.');
       cancelBtnHandler();
     } catch (error) {
-      console.log(error);
+      setSnackBarMsg('Error while sending your message, please try to send it later.');
+      setIsModalOpen(false);
+    } finally {
+      setIsSendingMsg(false);
     }
   };
 
@@ -105,7 +113,10 @@ function App() {
             <MainNavigation
               navLinksList={navLinksList}
               navButtonsList={navButtonsList}
+              isActive={isNavMenuOpen}
+              onClickHandler={() => setIsNavMenuOpen(false)}
             />
+            <BurgerBtn onClickHandler={() => setIsNavMenuOpen(true)}/>
           </div>
           <ThemeSwitcher
             themeType={themeType}
@@ -146,9 +157,9 @@ function App() {
           </div>
           <div className={styles.modalBtnWrapper}>
             <Button
-              title={'Send message'}
+              title={isSendingMsg ? 'Sending...' : 'Send message'}
               fontSize={18}
-              isDissabled={false}
+              isDissabled={isSendingMsg || !isUserEmailValid || !(userName && userEmail && userMessage)}
               onClickHandler={sendMessageHandler}
             />
             <Button
@@ -159,6 +170,11 @@ function App() {
           </div>
         </>
       </Modal>
+      <SnackBar
+        message={snackBarMsg}
+        duration={7000}
+        clearMsg={() => setSnackBarMsg('')}
+      />
     </div>
   );
 }

@@ -16,14 +16,22 @@ export interface INavigationButton {
 interface MainNavigationProps {
   navLinksList: INavigationLink[],
   navButtonsList: INavigationButton[],
+  isActive: boolean,
+  onClickHandler: () => void,
 }
 
 const MainNavigation: FC<MainNavigationProps> = ({
   navLinksList,
   navButtonsList,
+  isActive,
+  onClickHandler,
 }) => {
   return (
-    <nav className={styles.navList}>
+    <nav
+      className={styles.navList}
+      data-is-active={isActive}
+      onClick={isActive ? onClickHandler : undefined}
+    >
       {
         navLinksList.length
           ?

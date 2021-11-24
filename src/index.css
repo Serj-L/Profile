@@ -15,9 +15,10 @@
 
   /* colors */
   --clr-white: hsl(0, 0%, 98%);
-  --clr-blue: hsl(220, 98%, 61%);
-  --clr-purple: hsl(276, 98%, 61%);
-  --clr-red: hsl(355, 98%, 66%);
+  --clr-main: hsl(220, 98%, 61%);
+  --clr-accent: hsl(276, 98%, 61%);
+  --clr-danger: hsl(355, 98%, 66%);
+  --clr-disabled: hsla(240, 9%, 61%, 0.5);
 
   --clr-bg-light: hsl(236, 33%, 92%);
   --clr-txt-light: hsl(235, 19%, 35%);
@@ -30,6 +31,9 @@
   --clr-ui-dark: hsl(235, 19%, 35%);
   --clr-ui-border-dark: hsl(236, 9%, 61%);
   --clr-ui-hover-dark: hsl(236, 9%, 61%);
+
+  /* breakpoints */
+  --scr-md: 768px;
 
   /* other */
   --radius: 6px;

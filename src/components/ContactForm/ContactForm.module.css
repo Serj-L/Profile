@@ -9,6 +9,7 @@
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
 }
+
 .formInputLabel:last-of-type {
   padding-top: 1.2rem;
 }
@@ -27,12 +28,16 @@
   transition: var(--transition-duration);
 }
 
+.formTextArea {
+  resize: none;
+}
+
 .formInput[data-is-valid='false'] {
-  border-color: var(--clr-red);
+  border-color: var(--clr-danger);
 }
 
 .validationMessage {
-  color: var(--clr-red);
+  color: var(--clr-danger);
   visibility: hidden;
 }
 
@@ -44,7 +49,7 @@
 .formInput:not([data-is-valid='false']):focus,
 .formTextArea:hover,
 .formTextArea:focus {
-  border-color: var(--clr-blue);
+  border-color: var(--clr-main);
 }
 
 .text {
