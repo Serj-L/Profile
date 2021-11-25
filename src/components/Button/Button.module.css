@@ -44,12 +44,18 @@
   transition: var(--transition-duration) ease-in;
 }
 
-.btn[data-is-transparent='true']::after,
+.btn[data-is-accent='true']::after {
+  background: var(--clr-accent);
+}
+
+.btn[data-is-shadow='true']::after {
+  box-shadow: var(--shadow-sm);
+}
+
 .btn[data-is-transparent='true']::after {
   transform: scale(0);
 }
 
-.btn[data-is-transparent='false']::after,
 .btn[data-is-transparent='false']::after {
   transform: scale(1);
 }

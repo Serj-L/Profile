@@ -8,6 +8,7 @@ interface ContactFormProps {
   userEmailInputValue: string;
   textAreaValue: string;
   isEmailValid: boolean;
+  isAccent?: boolean;
   userNameInputOnChangeHandler: (value: string) => void;
   userEmailInputOnChangeHandler: (value: string) => void;
   textAreaInputOnChangeHandler: (value: string) => void;
@@ -19,6 +20,7 @@ const ContactForm: FC<ContactFormProps> = ({
   userEmailInputValue,
   textAreaValue,
   isEmailValid,
+  isAccent = false,
   userNameInputOnChangeHandler,
   userEmailInputOnChangeHandler,
   textAreaInputOnChangeHandler,
@@ -26,6 +28,7 @@ const ContactForm: FC<ContactFormProps> = ({
   return (
     <form
       className={styles.contactForm}
+      data-is-accent={isAccent}
       onSubmit={(e) => e.preventDefault()}
     >
       <label

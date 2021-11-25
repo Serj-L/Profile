@@ -52,6 +52,13 @@
   border-color: var(--clr-main);
 }
 
+.contactForm[data-is-accent='true'] .formInput:not([data-is-valid='false']):hover,
+.contactForm[data-is-accent='true'] .formInput:not([data-is-valid='false']):focus,
+.contactForm[data-is-accent='true'] .formTextArea:hover,
+.contactForm[data-is-accent='true'] .formTextArea:focus {
+  border-color: var(--clr-accent);
+}
+
 .text {
   font-size: var(--fs-md);
   padding-top: 0.3rem;

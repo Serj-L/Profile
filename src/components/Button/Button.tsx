@@ -7,6 +7,8 @@ interface ButtonProps {
   fontSize: number,
   isDissabled?: boolean,
   isTransparent?: boolean,
+  isAccent?: boolean,
+  isShadow?: boolean,
   onClickHandler: () => void;
 }
 
@@ -15,6 +17,8 @@ const Button: FC<ButtonProps> = ({
   fontSize,
   isDissabled = false,
   isTransparent = true,
+  isAccent = false,
+  isShadow = false,
   onClickHandler,
 }) => {
   return (
@@ -23,7 +27,9 @@ const Button: FC<ButtonProps> = ({
       style={{ fontSize: fontSize }}
       disabled={isDissabled}
       data-is-transparent={isTransparent}
-      onClick = {(e) => {
+      data-is-accent={isAccent}
+      data-is-shadow={isShadow}
+      onClick={(e) => {
         e.currentTarget.blur();
         onClickHandler();
       }}

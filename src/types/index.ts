@@ -8,8 +8,13 @@ export enum ThemeTypes {
   DARK = 'dark',
 }
 
-export enum Routes {
+export enum RoutesEnum {
   ABOUTME = '/',
   PORTFOLIO = '/portfolio',
   REDIRECTPATH = '/',
+}
+
+export enum UserRequestTypes {
+  CONTACT = 'Message',
+  HIRE = 'Job offer',
 }

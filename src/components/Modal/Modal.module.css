@@ -45,6 +45,10 @@
   padding: 0.75rem;
 }
 
+.modal[data-is-accent='true'] .modalHeader {
+  background:var(--clr-accent);
+}
+
 .modalTitle {
   margin: 0;
   font-size: var(--fs-lg);

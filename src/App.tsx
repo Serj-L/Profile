@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { LocalStorageKeys, ThemeTypes, Routes } from './types';
+import {
+  LocalStorageKeys,
+  ThemeTypes,
+  RoutesEnum,
+  UserRequestTypes,
+} from './types';
 import { sendUserMessage } from './api/EmalJS';
-import { AppRouter, IRoute } from './router';
-import { AboutMePage, PortfolioPage } from './pages';
+import { AppRouter } from './router';
 import {
   MainNavigation,
   INavigationLink,
@@ -19,25 +23,14 @@ import {
 
 import styles from './App.module.css';
 
-const routesList: IRoute[] = [
-  {
-    path: Routes.ABOUTME,
-    component: AboutMePage,
-  },
-  {
-    path: Routes.PORTFOLIO,
-    component: PortfolioPage,
-  },
-];
-
 const navLinksList: INavigationLink[] = [
   {
     title: 'About_Me',
-    path: Routes.ABOUTME,
+    path: RoutesEnum.ABOUTME,
   },
   {
     title: 'Portfolio',
-    path: Routes.PORTFOLIO,
+    path: RoutesEnum.PORTFOLIO,
   },
 ];
 
@@ -55,16 +48,19 @@ function App() {
   const [isSendingMsg, setIsSendingMsg] = useState<boolean>(false);
   const [snackBarMsg, setSnackBarMsg] = useState<string>('');
   const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
+  const [userMsgTitle, setUserMsgTitle] = useState<UserRequestTypes.CONTACT | UserRequestTypes.HIRE>(UserRequestTypes.CONTACT);
 
-  const modalOpenHandler = () => {
-    setIsModalOpen(!isModalOpen);
-  };
   const navButtonsList: INavigationButton[] = [
     {
       title: 'Contact_Me',
-      onClickHandler: modalOpenHandler,
+      onClickHandler: () => modalOpenHandler(UserRequestTypes.CONTACT),
     },
   ];
+
+  function modalOpenHandler(requestType: UserRequestTypes.CONTACT | UserRequestTypes.HIRE) {
+    setIsModalOpen(!isModalOpen);
+    setUserMsgTitle(requestType);
+  }
   const themeChangeHandler = () => {
     setThemeType(themeType === ThemeTypes.LIGHT ? ThemeTypes.DARK: ThemeTypes.LIGHT);
   };
@@ -85,10 +81,10 @@ function App() {
     try {
       setIsSendingMsg(true);
       await sendUserMessage(userFormData);
-      setSnackBarMsg('Your message was send.');
+      setSnackBarMsg(`Your ${userMsgTitle.toLowerCase()} was send.`);
       cancelBtnHandler();
     } catch (error) {
-      setSnackBarMsg('Error while sending your message, please try to send it later.');
+      setSnackBarMsg(`Error while sending your ${userMsgTitle.toLowerCase()}, please try to send it later.`);
       setIsModalOpen(false);
     } finally {
       setIsSendingMsg(false);
@@ -126,8 +122,7 @@ function App() {
       </header>
       <main className={styles.mainContentWrapper}>
         <AppRouter
-          routesList={routesList}
-          redirectPath={Routes.REDIRECTPATH}
+          aboutMeHireBtnHandler={() => modalOpenHandler(UserRequestTypes.HIRE)}
         />
       </main>
       <footer className={styles.footer}>
@@ -137,15 +132,17 @@ function App() {
       <Modal
         isModalActive = {isModalOpen}
         closeModalHandler = {cancelBtnHandler}
-        modalTitle = 'Contact form'
+        modalTitle={`${userMsgTitle} form`}
+        isAccent={userMsgTitle === UserRequestTypes.HIRE}
       >
         <>
           <div className={styles.modalAppContent}>
             <ContactForm
-              textAreaTitle={'Message'}
+              textAreaTitle={userMsgTitle}
               userNameInputValue={userName}
               userEmailInputValue={userEmail}
               textAreaValue={userMessage}
+              isAccent={userMsgTitle === UserRequestTypes.HIRE}
               userNameInputOnChangeHandler={(value) => setUserName(value)}
               userEmailInputOnChangeHandler={(value) => {
                 setUserEmail(value);
@@ -157,14 +154,16 @@ function App() {
           </div>
           <div className={styles.modalBtnWrapper}>
             <Button
-              title={isSendingMsg ? 'Sending...' : 'Send message'}
+              title={isSendingMsg ? 'Sending...' : `Send a ${userMsgTitle.toLowerCase()}`}
               fontSize={18}
               isDissabled={isSendingMsg || !isUserEmailValid || !(userName && userEmail && userMessage)}
+              isAccent={userMsgTitle === UserRequestTypes.HIRE}
               onClickHandler={sendMessageHandler}
             />
             <Button
               title={'Cancel'}
               fontSize={18}
+              isAccent={userMsgTitle === UserRequestTypes.HIRE}
               onClickHandler={cancelBtnHandler}
             />
           </div>

@@ -1,2 +1,20 @@
 .container {
+  flex-grow: 1;
+}
+
+.contentWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.text {
+font-size: var(--fs-lg);
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 0;
 }

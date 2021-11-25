@@ -1,40 +1,28 @@
 import { FC } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-export interface IRoute {
-  path: string,
-  component: FC,
-}
-
+import { RoutesEnum } from '../types';
+import { AboutMePage, PortfolioPage } from '../pages';
 interface AppRouterProps {
-  routesList: IRoute[],
-  redirectPath: string,
+  aboutMeHireBtnHandler: () => void,
 }
 
 export const AppRouter: FC<AppRouterProps> = ({
-  routesList,
-  redirectPath,
+  aboutMeHireBtnHandler,
 }) => {
   return (
     <Routes>
-      {
-        routesList.length
-          ?
-          routesList.map(route => {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={<route.component />}
-              />
-            );
-          })
-          :
-          null
-      }
+      <Route
+        path={RoutesEnum.ABOUTME}
+        element={<AboutMePage hireBtnHandler={aboutMeHireBtnHandler}/>}
+      />
+      <Route
+        path={RoutesEnum.PORTFOLIO}
+        element={<PortfolioPage />}
+      />
       <Route
         path='*'
-        element={<Navigate to={redirectPath} />}
+        element={<Navigate to={RoutesEnum.REDIRECTPATH} />}
       />
     </Routes>
   );
