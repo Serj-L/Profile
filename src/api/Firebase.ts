@@ -14,13 +14,13 @@ export const app = initializeApp(firebaseConfig);
 
 const storage = getStorage();
 
-export const getUrlfromDb = async (filePath: string): Promise<string> => {
+export const getUrlFromDb = async (filePath: string): Promise<string> => {
   const url = await getDownloadURL(ref(storage, filePath));
   return url;
 };
 
-export const getBlobfromDb = async (filePath: string): Promise<Blob> => {
-  const url = await getUrlfromDb(filePath);
+export const getBlobFromDb = async (filePath: string): Promise<Blob> => {
+  const url = await getUrlFromDb(filePath);
   const response = await fetch(url);
   const blob = await response.blob();
   return blob;

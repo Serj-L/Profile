@@ -9,6 +9,7 @@ interface ButtonProps {
   isTransparent?: boolean,
   isAccent?: boolean,
   isShadow?: boolean,
+  isNeon?: boolean,
   onClickHandler: () => void;
 }
 
@@ -19,6 +20,7 @@ const Button: FC<ButtonProps> = ({
   isTransparent = true,
   isAccent = false,
   isShadow = false,
+  isNeon = false,
   onClickHandler,
 }) => {
   return (
@@ -29,6 +31,7 @@ const Button: FC<ButtonProps> = ({
       data-is-transparent={isTransparent}
       data-is-accent={isAccent}
       data-is-shadow={isShadow}
+      data-is-neon={isNeon}
       onClick={(e) => {
         e.currentTarget.blur();
         onClickHandler();

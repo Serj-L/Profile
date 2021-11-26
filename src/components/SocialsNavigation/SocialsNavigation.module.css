@@ -8,6 +8,8 @@
 }
 
 .socialsNavLink {
+  display: block;
+  line-height: 0;
   color: var(--clr-text);
   text-decoration: none;
   outline: none;

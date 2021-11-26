@@ -1,11 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
-  LocalStorageKeys,
   ThemeTypes,
   RoutesEnum,
   UserRequestTypes,
 } from './types';
+import { RootState } from './store/index';
+import {
+  setThemeType,
+  setSnackBarMsg,
+} from './store/appCommonStateSlice';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from './hooks/redux';
 import { sendUserMessage } from './api/EmalJS';
 import { AppRouter } from './router';
 import {
@@ -39,16 +47,16 @@ const emailValidator: (email: string) => boolean = (email) => {
 };
 
 function App() {
-  const [themeType, setThemeType] = useState<string>(localStorage.getItem(LocalStorageKeys.THEMETYPE) || ThemeTypes.LIGHT);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [userMessage, setUserMessage] = useState<string>('');
   const [isUserEmailValid, setIsUserEmailValid] = useState<boolean>(true);
   const [isSendingMsg, setIsSendingMsg] = useState<boolean>(false);
-  const [snackBarMsg, setSnackBarMsg] = useState<string>('');
   const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
   const [userMsgTitle, setUserMsgTitle] = useState<UserRequestTypes.CONTACT | UserRequestTypes.HIRE>(UserRequestTypes.CONTACT);
+  const { themeType, snackBarMsg } = useAppSelector((state: RootState) => state.appCommonState);
+  const reduxDispatch = useAppDispatch();
 
   const navButtonsList: INavigationButton[] = [
     {
@@ -62,7 +70,7 @@ function App() {
     setUserMsgTitle(requestType);
   }
   const themeChangeHandler = () => {
-    setThemeType(themeType === ThemeTypes.LIGHT ? ThemeTypes.DARK: ThemeTypes.LIGHT);
+    reduxDispatch(setThemeType({ themeType: themeType === ThemeTypes.LIGHT ? ThemeTypes.DARK: ThemeTypes.LIGHT }));
   };
   const cancelBtnHandler = () => {
     setUserName('');
@@ -81,21 +89,15 @@ function App() {
     try {
       setIsSendingMsg(true);
       await sendUserMessage(userFormData);
-      setSnackBarMsg(`Your ${userMsgTitle.toLowerCase()} was send.`);
+      reduxDispatch(setSnackBarMsg({ snackBarMsg: `Your ${userMsgTitle.toLowerCase()} was send.` }));
       cancelBtnHandler();
     } catch (error) {
-      setSnackBarMsg(`Error while sending your ${userMsgTitle.toLowerCase()}, please try to send it later.`);
+      reduxDispatch(setSnackBarMsg({ snackBarMsg: `Error while sending your ${userMsgTitle.toLowerCase()}, please try to send it later.` }));
       setIsModalOpen(false);
     } finally {
       setIsSendingMsg(false);
     }
   };
-
-  useEffect(() => {
-    if (localStorage.getItem(LocalStorageKeys.THEMETYPE) !== themeType) {
-      localStorage.setItem(LocalStorageKeys.THEMETYPE, themeType);
-    }
-  }, [themeType]);
 
   return (
     <div
@@ -172,7 +174,7 @@ function App() {
       <SnackBar
         message={snackBarMsg}
         duration={7000}
-        clearMsg={() => setSnackBarMsg('')}
+        clearMsg={() => reduxDispatch(setSnackBarMsg({ snackBarMsg: '' }))}
       />
     </div>
   );

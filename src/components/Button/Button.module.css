@@ -4,7 +4,7 @@
   font-family: var(--family);
   font-weight: var(--fw-bold);
   line-height: 2;
-  background: var(--clr-ui);
+  background-color: inherit;
   padding: 0 0.5em;
   border-radius: var(--radius);
   border: 2px solid var(--clr-ui-border);
@@ -48,7 +48,7 @@
   background: var(--clr-accent);
 }
 
-.btn[data-is-shadow='true']::after {
+.btn[data-is-shadow='true'] {
   box-shadow: var(--shadow-sm);
 }
 
@@ -58,6 +58,30 @@
 
 .btn[data-is-transparent='false']::after {
   transform: scale(1);
+}
+
+.btn[data-is-neon='true'] {
+  color: var(--clr-accent);
+  text-shadow: 0 0 0.1em hsl(0 0% 100% / 0.1), 0 0 0.3em currentColor;
+  box-shadow: inset 0 0 0.4em 0 var(--clr-accent), 0 0 0.4em 0 var(--clr-accent);
+  border-color: var(--clr-accent);
+  animation: neon 1.5s forwards;
+  transition: var(--transition-duration);
+}
+
+.btn[data-is-neon='true']::before {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  background: var(--clr-accent);
+  top: 110%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: perspective(1em) rotateX(30deg) scale(0.9, 0.35);
+  filter: blur(1.5em);
+  animation: neonShadow 1.5s forwards;
+  transition: var(--transition-duration);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -77,5 +101,42 @@
   .btn[data-is-transparent='false']:not(:disabled):hover,
   .btn[data-is-transparent='false']:not(:disabled):focus {
     color: var(--clr-text);
+  }
+
+  .btn[data-is-neon='true']:not(:disabled):hover::before,
+  .btn[data-is-neon='true']:not(:disabled):focus::before {
+    opacity: 2;
+    filter: blur(1.1em);
+    transform: perspective(1em) rotateX(30deg) scale(1, 0.4);
+  }
+  .btn[data-is-neon='true']:not(:disabled):hover,
+  .btn[data-is-neon='true']:not(:disabled):focus {
+    box-shadow: inset 0 0 0.4em 0 var(--clr-accent), 0 0 0.7em 0 var(--clr-accent);
+    text-shadow: none;
+    opacity: 1;
+  }
+}
+
+@keyframes neon {
+  0% {
+    opacity: 0.2;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes neonShadow {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 0.3;
   }
 }

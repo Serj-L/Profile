@@ -19,7 +19,7 @@ const Modal: FC<ModalProps> = ({
 }) => {
 
   useEffect(() => {
-    isModalActive ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto';
+    isModalActive ? document.body.style.overflowY = 'hidden' : document.body.style.overflowY = 'auto';
   }, [isModalActive]);
 
   return isModalActive ?
