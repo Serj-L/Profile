@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import appCommonState from './appCommonStateSlice';
+import portfolio from './portfolioSlice';
 
 export const store = configureStore({
   reducer: {
     appCommonState,
+    portfolio,
   },
 });
 
