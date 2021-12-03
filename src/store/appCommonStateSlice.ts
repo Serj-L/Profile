@@ -23,7 +23,7 @@ const appCommonStateSlice = createSlice({
       }
     },
     setSnackBarMsg(state, action: PayloadAction<{snackBarMsg: string}>) {
-      state.snackBarMsg = (action.payload.snackBarMsg);
+      state.snackBarMsg = action.payload.snackBarMsg;
     },
   },
 });

@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 export enum LocalStorageKeys {
   THEMETYPE = 'ProfileAppThemeType',
+  LIKEDPROJECTS = 'ProfileAppLikedProjects',
+  MOBPREVIEWPROJECTS = 'ProfileAppMobPreviewProjects',
 }
 
 export enum ThemeTypes {

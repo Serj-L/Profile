@@ -27,7 +27,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 const storage = getStorage();
-const dataBase = getFirestore();
+export const dataBase = getFirestore();
 
 export const getUrlFromDb = async (filePath: string): Promise<string> => {
   const url = await getDownloadURL(ref(storage, filePath));
@@ -49,4 +49,14 @@ export const getProjectsFromDb = async () => {
 
 export const setProjectsToDb = async (projects: IProjectsFromDb[]) => {
   await setDoc(doc(dataBase, 'portfolio' , 'projects'), { list: projects } );
+};
+
+export const changeProjectLikeInDb = async (projectId: string, isLiked: boolean) => {
+  const projectsList: IProjectsFromDb[] = await getProjectsFromDb();
+  const updatedProjectsList = projectsList.map(project => {
+    return project.id !== projectId ? project : { ...project, raiting: isLiked ? project.raiting + 1 : project.raiting - 1 > 0 ? project.raiting - 1 : 0 };
+  });
+
+  await setDoc(doc(dataBase, 'portfolio' , 'projects'), { list: updatedProjectsList } );
+  return { projectId, isLiked };
 };

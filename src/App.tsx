@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import {
   ThemeTypes,
@@ -56,7 +56,6 @@ function App() {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState<boolean>(false);
   const [userMsgTitle, setUserMsgTitle] = useState<UserRequestTypes.CONTACT | UserRequestTypes.HIRE>(UserRequestTypes.CONTACT);
   const { themeType, snackBarMsg } = useAppSelector((state: RootState) => state.appCommonState);
-  const { portfolioErrMsg } = useAppSelector((state: RootState) => state.portfolio);
   const reduxDispatch = useAppDispatch();
 
   const navButtonsList: INavigationButton[] = [
@@ -99,13 +98,6 @@ function App() {
       setIsSendingMsg(false);
     }
   };
-
-  useEffect(() => {
-    if (!portfolioErrMsg) {
-      return;
-    }
-    reduxDispatch(setSnackBarMsg({ snackBarMsg: portfolioErrMsg }));
-  }, [portfolioErrMsg, reduxDispatch]);
 
   return (
     <div
