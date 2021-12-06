@@ -1,30 +1,85 @@
-.projectsWrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1.5rem;
+.projectsContainer {
+  position: relative;
 }
+
+.projectsContainer::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '';
+  width: 5px;
+  height: calc(60vh - 20px);
+  background: var(--clr-gradient);
+  z-index: 1;
+  box-shadow: -10px 0 20px 3px #000;
+}
+
+.projectsWrapper {
+  --padding-bottom: 20px;
+
+  display: grid;
+  grid-auto-flow: column;
+  overflow-x: scroll;
+  padding-bottom: var(--padding-bottom);
+}
+
+
 
 .projectCard {
+  --card-max-width: 30rem;
+
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  width: min(95vw, var(--card-max-width));
+  min-height: 60vh;
   border-radius: var(--radius);
+  z-index: 1;
+  box-shadow: -1rem 0 3rem -1rem #000;
   overflow: hidden;
-  background-color: var(--clr-ui);
-  box-shadow: var(--shadow-lg);
+  transition: var(--transition-duration);
 }
 
-.projectPreviewWrapper {
-  position: relative;
-  overflow: hidden;
+.projectCard:not(:first-child) {
+  margin-left: calc(var(--card-max-width) * -0.35);
 }
 
-.projectPreview {
-  width: 100%;
+.projectCard:hover,
+.projectCard:focus {
+  margin-right: calc(var(--card-max-width) * 0.35);
+}
+
+.projectCategory {
+  position: absolute;
+  top: 0;
+  left: 6%;
+  display: flex;
+  align-items: center;
+  width: 8%;
+  height: 100%;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--clr-white);
+  writing-mode: vertical-lr;
+  background: var(--clr-gradient);
+  padding-top: 1rem;
+}
+
+.iconsWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem;
 }
 
 .previewTypeIconWrapper,
-.likeIconWrapper {
-  position: absolute;
+.likeIconWrapper,
+.openProjectContentBtn {
   color: var(--clr-main);
   line-height: 0;
   padding: 0.2em;
@@ -35,22 +90,13 @@
   transition: var(--transition-duration);
 }
 
-.previewTypeIconWrapper {
-  top: 2%;
-  left: 2%;
-}
-
-.likeIconWrapper {
-  top: 2%;
-  right: 2%;
-}
-
 .previewTypeIconWrapper::before,
 .likeIconWrapper::before {
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: max-content;
   position: absolute;
-  bottom: 50%;
   line-height: 0;
   font-weight: var(--fw-bold);
   color: var(--clr-text);
@@ -65,23 +111,27 @@
 }
 
 .previewTypeIconWrapper[data-is-mobile-preview='true']::before {
-  content: 'Switch to Desktop preview';
-  right: -831%;
+  content: 'Switch to desktop preview';
+  left: -442%;
+  bottom: 30%;
 }
 
 .previewTypeIconWrapper[data-is-mobile-preview='false']::before {
-  content: 'Switch to Mobile preview';
-  right: -801%;
+  content: 'Switch to mobile preview';
+  left: -427%;
+  bottom: 30%;
 }
 
 .likeIconWrapper[data-is-liked='true']::before {
   content: 'Dislike :(';
-  left: -400%;
+  left: -199%;
+  bottom: 71%;
 }
 
 .likeIconWrapper[data-is-liked='false']::before {
   content: 'Like :)';
-  left: -311%;
+  left: -150%;
+  bottom: 71%;
 }
 
 .likeIconWrapper[data-is-liked='true'] {
@@ -91,14 +141,27 @@
 .projectContentControlsWrapper {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   padding: 0.75rem;
+  background: var(--clr-ui);
   transition: var(--transition-duration);
-  transform: translateY(0);
+  transform: translateY(100%);
 }
 
-.projectContentControlsWrapper[data-is-visible='false'] {
-  transform: translateY(100%);
+.openProjectContentBtn {
+  position: absolute;
+  top: -40px;
+  right: 0.75rem;
+}
+
+.projectCard:hover .openProjectContentBtn[data-is-up='false'],
+.projectCard:focus .openProjectContentBtn[data-is-up='false'] {
+  transform: rotate(180deg);
+  box-shadow: var(--shadow-negative-sm);
+}
+
+.projectCard:hover .projectContentControlsWrapper[data-is-visible='true'],
+.projectCard:focus .projectContentControlsWrapper[data-is-visible='true'] {
+  transform: translateY(0);
 }
 
 .projectContent {
@@ -140,7 +203,9 @@
   .previewTypeIconWrapper:hover,
   .previewTypeIconWrapper:focus,
   .likeIconWrapper[data-is-liked='false']:hover,
-  .likeIconWrapper[data-is-liked='false']:focus {
+  .likeIconWrapper[data-is-liked='false']:focus,
+  .openProjectContentBtn:hover,
+  .openProjectContentBtn:focus {
     color: var(--clr-accent);
   }
 

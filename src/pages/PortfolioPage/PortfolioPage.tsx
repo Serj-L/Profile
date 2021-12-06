@@ -23,7 +23,9 @@ const PortfolioPage: FC<PortfolioPageProps> = () => {
 
   useEffect(() => {
     const firebaseOnSnapshot = onSnapshot(doc(dataBase, 'portfolio', 'projects'), (projects) => {
-      reduxDispatch(updateLocalProjectsList(projects.data()?.list));
+      if (projects.data()) {
+        reduxDispatch(updateLocalProjectsList(projects.data()?.list));
+      }
     });
 
     return () => firebaseOnSnapshot();

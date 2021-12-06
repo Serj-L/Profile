@@ -15,3 +15,5 @@ export { default as DesktopIcon } from './Icons/DesktopIcon';
 export { default as MobileIcon } from './Icons/MobileIcon';
 export { default as HeartIcon } from './Icons/HeartIcon';
 export { default as HeartFilledIcon } from './Icons/HeartFilledIcon';
+export { default as ImgPlaceholderIcon } from './Icons/ImgPlaceholderIcon';
+export { default as ShevronIcon } from './Icons/ShevronIcon';

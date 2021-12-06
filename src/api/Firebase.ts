@@ -4,6 +4,7 @@ import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 export interface IProjectsFromDb {
   id: string,
+  category: string,
   title: string,
   description: string,
   previewImgRef: string,
