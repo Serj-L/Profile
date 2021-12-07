@@ -76,7 +76,7 @@
     top: 0;
     left: 0;
     padding-top: 2rem;
-    transform: translateX(100%);
+    transform: translateX(-100%);
     transition: transform var(--transition-duration);
     overflow: auto;
     z-index: 2;

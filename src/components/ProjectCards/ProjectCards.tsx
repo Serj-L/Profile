@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { IProjectsSlice } from '../../store/portfolioSlice';
 
@@ -10,6 +10,7 @@ import {
   ShevronIcon,
 } from '../';
 
+import imgBlank from '../../images/file-image-regular.svg';
 import styles from './ProjectCards.module.css';
 
 interface ProjectCardsProps {
@@ -23,15 +24,10 @@ const ProjectCards: FC<ProjectCardsProps> = ({
   changePreviewTypeHandler,
   likeHandler,
 }) => {
+  const [activeProjectDetailsId, setActiveProjectDetailsId] = useState<string>('');
 
-  const openProjectDetailsHandler = (node: HTMLDivElement) => {
-    const projectDetailsCard = node.closest('div[data-is-visible]');
-    if (projectDetailsCard) {
-      const isProjectDetailsVisible = projectDetailsCard.getAttribute('data-is-visible') === 'true' ? true : false;
-
-      projectDetailsCard.setAttribute('data-is-visible', `${!isProjectDetailsVisible}`);
-      node.setAttribute('data-is-up', `${isProjectDetailsVisible}`);
-    }
+  const openProjectDetailsHandler = (projectId: string) => {
+    activeProjectDetailsId === projectId ? setActiveProjectDetailsId('') : setActiveProjectDetailsId(projectId);
   };
 
   return (
@@ -44,49 +40,67 @@ const ProjectCards: FC<ProjectCardsProps> = ({
             <div
               key={project.id}
               className={styles.projectCard}
-              style={{ background: `var(--clr-ui) url(${project.isMobilePreview ? project.previewMobileImgRef : project.previewImgRef}) ${project.isMobilePreview ? 'left' : '25%'} / cover no-repeat` }}
+              style={{ background: `url(${imgBlank}) center / 40% no-repeat, url(${project.isMobilePreview ? project.previewMobileImgRef : project.previewImgRef}) ${project.isMobilePreview ? 'top left' : '25%'} / cover no-repeat var(--clr-ui)` }}
             >
               <div className={styles.projectCategory}>{project.category}</div>
-              <div className={styles.iconsWrapper}>
-                <div
-                  className={styles.likeIconWrapper}
-                  data-is-liked={project.isLiked}
-                  onClick={() => likeHandler(project.id, !project.isLiked)}
-                >
-                  {
-                    project.isLiked
-                      ?
-                      <HeartFilledIcon width={24}/>
-                      :
-                      <HeartIcon width={24}/>
-                  }
+              <div className={styles.iconsContainer}>
+                <div className={styles.iconsWrapper}>
+                  <div
+                    className={styles.likeIconWrapper}
+                    data-is-liked={project.isLiked}
+                    onClick={() => likeHandler(project.id, !project.isLiked)}
+                  >
+                    {
+                      project.isLiked
+                        ?
+                        <HeartFilledIcon width={24}/>
+                        :
+                        <HeartIcon width={24}/>
+                    }
+                  </div>
+                  <div
+                    className={styles.likeTooltip}
+                  >
+                    {project.isLiked ? 'Dislike :(' : 'Like :)'}
+                  </div>
                 </div>
-                <div
-                  className={styles.previewTypeIconWrapper}
-                  data-is-mobile-preview={project.isMobilePreview}
-                  onClick={() => changePreviewTypeHandler(project.id)}
-                >
-                  {
-                    project.isMobilePreview
-                      ?
-                      <MobileIcon width={24}/>
-                      :
-                      <DesktopIcon width={24}/>
-                  }
+                <div className={styles.iconsWrapper}>
+                  <div
+                    className={styles.previewTypeIconWrapper}
+                    data-is-mobile-preview={project.isMobilePreview}
+                    onClick={() => changePreviewTypeHandler(project.id)}
+                  >
+                    {
+                      project.isMobilePreview
+                        ?
+                        <MobileIcon width={24}/>
+                        :
+                        <DesktopIcon width={24}/>
+                    }
+                  </div>
+                  <div
+                    className={styles.previewTypeTooltip}
+                  >
+                    {project.isMobilePreview ? 'Switch to desktop preview' : 'Switch to mobile preview'}
+                  </div>
                 </div>
+
               </div>
               <div
                 className={styles.projectContentControlsWrapper}
-                data-is-visible='false'
+                data-is-visible={activeProjectDetailsId === project.id}
               >
                 <div
-                  className={styles.openProjectContentBtn}
-                  data-is-up={true}
-                  onClick={(event) => openProjectDetailsHandler(event.currentTarget)}
+                  className={styles.projectContentTogglerWrapper}
                 >
-                  <ShevronIcon
-                    width={24}
-                  />
+                  <div
+                    className={styles.projectContentTogglerBtn}
+                    data-is-up={activeProjectDetailsId !== project.id}
+                    onClick={() => openProjectDetailsHandler(project.id)}
+                  >
+                    <ShevronIcon width={24}/>
+                  </div>
+                  <div className={styles.openProjectContentBtnTooltip}>{activeProjectDetailsId !== project.id ? 'Open' : 'Close'} project details</div>
                 </div>
                 <div className={styles.projectContent}>
                   <h2 className={styles.projectTitle}>{project.title}</h2>
@@ -94,7 +108,7 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                 </div>
                 <div className={styles.projectControls}>
                   <div className={styles.projectRaiting}>
-                  Raitng: {project.raiting < 0 ? 0 : project.raiting} {project.raiting === 1 ? 'heart' : 'hearts'}
+                    Likes: {project.raiting}
                   </div>
                   <div className={styles.projectLinksWrapper}>
                     <a

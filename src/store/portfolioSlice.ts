@@ -41,6 +41,14 @@ const portfolioSlice = createSlice({
   name: 'portfolio',
   initialState,
   reducers: {
+    toggleIsLoading(state, action: PayloadAction<{isLoading: boolean}>) {
+      state.isLoading = action.payload.isLoading;
+    },
+    toggleError(state, action: PayloadAction<{isError: boolean, errorMsg: string}>) {
+      const { isError, errorMsg } = action.payload;
+      state.isError = isError;
+      state.portfolioErrMsg = errorMsg;
+    },
     changeProjectPreviewType(state, action: PayloadAction<{projectId: string}>) {
       const mobPreviewProjects = new Set (JSON.parse(localStorage.getItem(LocalStorageKeys.MOBPREVIEWPROJECTS) || '[]'));
       const { projectId } = action.payload;
@@ -109,5 +117,7 @@ const portfolioSlice = createSlice({
 export const {
   changeProjectPreviewType,
   updateLocalProjectsList,
+  toggleError,
+  toggleIsLoading,
 } = portfolioSlice.actions;
 export default portfolioSlice.reducer;

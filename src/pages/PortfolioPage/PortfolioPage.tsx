@@ -8,23 +8,31 @@ import {
   changeProjectPreviewType,
   updateLocalProjectsList,
   changeProjectLikeInDbThunk,
+  toggleError,
+  toggleIsLoading,
 } from '../../store/portfolioSlice';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 
-import { ProjectCards } from '../../components';
+import { ProjectCards, Loader } from '../../components';
 
 import styles from './PortfolioPage.module.css';
 
 interface PortfolioPageProps {}
 
 const PortfolioPage: FC<PortfolioPageProps> = () => {
-  const { projects, portfolioErrMsg } = useAppSelector((state: RootState) => state.portfolio);
+  const { projects, portfolioErrMsg, isLoading, isError } = useAppSelector((state: RootState) => state.portfolio);
   const reduxDispatch = useAppDispatch();
 
   useEffect(() => {
     const firebaseOnSnapshot = onSnapshot(doc(dataBase, 'portfolio', 'projects'), (projects) => {
+      reduxDispatch(toggleIsLoading({ isLoading: true }));
       if (projects.data()) {
+        reduxDispatch(toggleIsLoading({ isLoading: false }));
+        reduxDispatch(toggleError({ isError: false, errorMsg: '' }));
         reduxDispatch(updateLocalProjectsList(projects.data()?.list));
+      } else {
+        reduxDispatch(toggleIsLoading({ isLoading: false }));
+        reduxDispatch(toggleError({ isError: true, errorMsg: 'Error while downloading projects, please try to reload page or open Portfolio page later' }));
       }
     });
 
@@ -43,13 +51,16 @@ const PortfolioPage: FC<PortfolioPageProps> = () => {
       <h1 className={styles.title}>Portfolio</h1>
       <div className={styles.projectsWrapper}>
         {
-          projects.length
+          !isError
             ?
-            <ProjectCards
-              projects={projects}
-              changePreviewTypeHandler={(projectId) => reduxDispatch(changeProjectPreviewType({ projectId }))}
-              likeHandler={(projectId, isLiked) => reduxDispatch(changeProjectLikeInDbThunk({ projectId, isLiked }))}
-            />
+            !isLoading ?
+              <ProjectCards
+                projects={projects}
+                changePreviewTypeHandler={(projectId) => reduxDispatch(changeProjectPreviewType({ projectId }))}
+                likeHandler={(projectId, isLiked) => reduxDispatch(changeProjectLikeInDbThunk({ projectId, isLiked }))}
+              />
+              :
+              <Loader/>
             :
             <h2>Error while downloading projects, please try to reload page or open Portfolio page later</h2>
         }

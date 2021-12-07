@@ -60,3 +60,30 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+
+/* custom scroll-bar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clr-text);
+  border-radius: var(--radius);
+  transition: var(--transition-duration);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-gradient);
+}
+
+  @supports (scrollbar-color: var(--clr-ui-dark) transparent) {
+  * {
+    scrollbar-color: var(--clr-text) transparent;
+    scrollbar-width: thin;
+  }
+}

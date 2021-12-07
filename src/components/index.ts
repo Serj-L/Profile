@@ -8,6 +8,7 @@ export { default as Button } from './Button/Button';
 export { default as ContactForm } from './ContactForm/ContactForm';
 export { default as SnackBar } from './SnackBar/SnackBar';
 export { default as ProjectCards } from './ProjectCards/ProjectCards';
+export { default as Loader } from './Loader/Loader';
 export { default as CodeWarsIcon } from './Icons/CodeWarsIcon';
 export { default as LinkedInIcon } from './Icons/LinkedInIcon';
 export { default as GitHubIcon } from './Icons/GitHubIcon';
