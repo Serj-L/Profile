@@ -1,44 +1,37 @@
 .burgerBtn {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  position: relative;
-  margin-right: 21px;
-  width: 30px;
-  height: 30px;
+  align-items: flex-end;
+  gap: 3px;
+  margin-right: 1rem;
+  width: 2.5em;
+  height: 1.5em;
   background-color: transparent;
+  padding: 0.2em;
   border: 2px solid var(--clr-ui-border);
   border-radius: var(--radius);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
+  z-index: 2;
 }
 
 .burgerBtnLine {
-  display: block;
-  width: 20px;
-  height: 2px;
+  height: 3px;
   background-color: var(--clr-ui-border);
   transition: var(--transirion-duration);
 }
 
-.burgerBtn::before,
-.burgerBtn::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 2px;
-  background-color: var(--clr-ui-border);
-  transition: var(--transirion-duration);
+.burgerBtnLine:nth-child(1) {
+  width: 100%;
 }
 
-.burgerBtn::before {
-  top: 6px;
+.burgerBtnLine:nth-child(2) {
+  width: 70%;
 }
 
-.burgerBtn::after {
-  bottom: 4px;
+.burgerBtnLine:nth-child(3) {
+ width: 40%;
 }
 
 @media (min-width: 769px) {

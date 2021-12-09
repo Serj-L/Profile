@@ -114,7 +114,7 @@ function App() {
               isActive={isNavMenuOpen}
               onClickHandler={() => setIsNavMenuOpen(false)}
             />
-            <BurgerBtn onClickHandler={() => setIsNavMenuOpen(true)}/>
+            <BurgerBtn onClickHandler={() => setIsNavMenuOpen(!isNavMenuOpen)}/>
           </div>
           <ThemeSwitcher
             themeType={themeType}

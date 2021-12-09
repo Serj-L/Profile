@@ -5,3 +5,13 @@ flex-direction: column;
 width: 100%;
 overflow: hidden;
 }
+
+.title {
+  margin: 0;
+}
+
+@media (min-width: 769px) {
+  .title {
+    padding-block: 0.75rem;
+  }
+}

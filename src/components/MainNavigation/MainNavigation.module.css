@@ -70,36 +70,74 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vw;
-    height: 100vh;
+    width: fit-content;
+    height: fit-content;
     position: absolute;
-    top: 0;
-    left: 0;
-    padding-top: 2rem;
-    transform: translateX(-100%);
-    transition: transform var(--transition-duration);
-    overflow: auto;
+    top: 15px;
+    right: 85px;
+    padding: 3em 2em;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    clip-path: circle(0 at right top);
+    transition: clip-path cubic-bezier(0.77, 0, 0.175, 1) 0.7s 0.4s;
+    overflow-x: hidden;
+    overflow-y: auto;
     z-index: 2;
   }
 
-  .navList[data-is-active='true'] {
-    transform: translateX(0);
+  .navList[data-is-active='true'],
+  .navList[data-is-active='true']::before,
+  .navList[data-is-active='true']::after {
+    clip-path: circle(200% at right top);
   }
 
+  .navList::before,
   .navList::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--clr-bg);
-    opacity: 0.95;
+    width: 100%;
+    height: 100%;
+    background-color: var(--clr-ui);
+    clip-path: circle(0 at right top);
     z-index: -1;
+  }
+
+  .navList::before {
+    opacity: 0.5;
+    transition: clip-path cubic-bezier(0.77, 0, 0.175, 1) 0.7s 0.4s;
+  }
+
+  .navList::after {
+    transition: clip-path cubic-bezier(0.77, 0, 0.175, 1) 0.8s 0.6s;
   }
 
   .navLinkItem,
   .navButtonItem {
     font-size: var(--fs-xxl);
+    opacity: 0;
+    transform: translateX(120%);
+    transition: opacity 0.6s 1.1s, transform 0.6s 1.1s;
+  }
+
+  .navList[data-is-active='true'] .navLinkItem,
+  .navList[data-is-active='true'] .navButtonItem {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .navList[data-is-active='false'],
+  .navList[data-is-active='false']::before {
+    transition: clip-path cubic-bezier(0.77, 0, 0.175, 1) 0.7s 0.6s;
+  }
+
+  .navList[data-is-active='false']::after {
+    transition: clip-path cubic-bezier(0.77, 0, 0.175, 1) 0.7s 0.4s;
+  }
+
+  .navList[data-is-active='false'] .navLinkItem,
+  .navList[data-is-active='false'] .navButtonItem {
+    transition: opacity 0.6s 0.3s, transform 0.6s 0.3s;
   }
 }

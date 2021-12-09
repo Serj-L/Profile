@@ -11,6 +11,8 @@ const BurgerBtn: FC<BurgerBtnProps> = ({ onClickHandler }) => {
       onClick={onClickHandler}
     >
       <span className={styles.burgerBtnLine}></span>
+      <span className={styles.burgerBtnLine}></span>
+      <span className={styles.burgerBtnLine}></span>
     </div>
   );
 };
