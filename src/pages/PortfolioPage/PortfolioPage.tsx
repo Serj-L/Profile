@@ -24,21 +24,25 @@ const PortfolioPage: FC<PortfolioPageProps> = () => {
   const reduxDispatch = useAppDispatch();
 
   useEffect(() => {
-    const firebaseOnSnapshot = onSnapshot(doc(dataBase, 'portfolio', 'projects'), (projects) => {
-      reduxDispatch(toggleIsLoading({ isLoading: true }));
-      if (projects.data()) {
+    reduxDispatch(toggleIsLoading({ isLoading: true }));
+
+    const firebaseOnSnapshot = onSnapshot(doc(dataBase, 'portfolio', 'projects'), (projectsFromDb) => {
+      if (projectsFromDb.data()) {
         reduxDispatch(toggleIsLoading({ isLoading: false }));
         reduxDispatch(toggleError({ isError: false, errorMsg: '' }));
-        reduxDispatch(updateLocalProjectsList(projects.data()?.list));
+        reduxDispatch(updateLocalProjectsList(projectsFromDb.data()?.list));
       } else {
-        reduxDispatch(toggleIsLoading({ isLoading: false }));
-        reduxDispatch(toggleError({ isError: true, errorMsg: 'Error while downloading projects, please try to reload page or open Portfolio page later' }));
+        if (!projects.length) {
+          reduxDispatch(toggleIsLoading({ isLoading: false }));
+          reduxDispatch(toggleError({ isError: true, errorMsg: 'Error while downloading projects, please try to reload page or open Portfolio page later' }));
+        }
       }
     });
 
     return () => firebaseOnSnapshot();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     if (!portfolioErrMsg) {
       return;
@@ -48,7 +52,7 @@ const PortfolioPage: FC<PortfolioPageProps> = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Portfolio</h1>
+      <h1 className={styles.title}>My projects</h1>
       <div className={styles.projectsWrapper}>
         {
           !isError

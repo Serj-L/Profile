@@ -86,8 +86,6 @@ const portfolioSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(changeProjectLikeInDbThunk.pending, (state) => {
-      state.isLoading = true;
-
       if (state.isError) {
         state.isError = false;
         state.portfolioErrMsg = '';

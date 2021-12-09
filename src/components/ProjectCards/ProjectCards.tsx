@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, WheelEvent } from 'react';
 
 import { IProjectsSlice } from '../../store/portfolioSlice';
 
@@ -29,18 +29,37 @@ const ProjectCards: FC<ProjectCardsProps> = ({
   const openProjectDetailsHandler = (projectId: string) => {
     activeProjectDetailsId === projectId ? setActiveProjectDetailsId('') : setActiveProjectDetailsId(projectId);
   };
+  const onMouseWheelHandler = (e: WheelEvent) => {
+    const moveDirection = e.deltaY > 0 ? 'left' : 'right';
+
+    if (
+      (moveDirection === 'right' && !e.currentTarget.scrollLeft)
+      ||
+      (moveDirection === 'left' && e.currentTarget.scrollWidth - e.currentTarget.scrollLeft === e.currentTarget.clientWidth)) {
+      return;
+    }
+
+    const projectCardElement = e.currentTarget.firstChild as HTMLElement;
+    const scrollDistance = projectCardElement.clientWidth / 2;
+
+    e.currentTarget.scrollTo({
+      left: moveDirection === 'left' ? e.currentTarget.scrollLeft + scrollDistance : e.currentTarget.scrollLeft - scrollDistance,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div className={styles.projectsContainer}>
       <div
         className={styles.projectsWrapper}
+        onWheel={e => onMouseWheelHandler(e)}
       >
         {
           projects.map((project) => (
             <div
               key={project.id}
               className={styles.projectCard}
-              style={{ background: `url(${imgBlank}) center / 40% no-repeat, url(${project.isMobilePreview ? project.previewMobileImgRef : project.previewImgRef}) ${project.isMobilePreview ? 'top left' : '25%'} / cover no-repeat var(--clr-ui)` }}
+              style={{ background: `url(${project.isMobilePreview ? project.previewMobileImgRef : project.previewImgRef}) ${project.isMobilePreview ? 'top left' : '25%'} / cover no-repeat, var(--clr-ui) url(${imgBlank}) center / 40% no-repeat ` }}
             >
               <div className={styles.projectCategory}>{project.category}</div>
               <div className={styles.iconsContainer}>
