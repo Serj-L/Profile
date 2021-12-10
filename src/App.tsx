@@ -29,6 +29,8 @@ import {
   SnackBar,
 } from './components';
 
+import logo from './images/MyLogo.png';
+
 import styles from './App.module.css';
 
 const navLinksList: INavigationLink[] = [
@@ -107,7 +109,12 @@ function App() {
       <header className={styles.header}>
         <div className={styles.headerContentWrapper}>
           <div className={styles.logoNavWrapper}>
-            <div className={styles.headerLogo}>!SL</div>
+            <div className={styles.headerLogo}>
+              <img
+                className={styles.headerLogoImg}
+                src={`${logo}`}
+                alt="logo" />
+            </div>
             <MainNavigation
               navLinksList={navLinksList}
               navButtonsList={navButtonsList}

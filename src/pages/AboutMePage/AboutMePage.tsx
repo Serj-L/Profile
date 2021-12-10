@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { getBlobFromDb } from '../../api/Firebase';
 
 import { Button } from '../../components';
+import myFoto from '../../images/MyFoto.png';
 
 import styles from './AboutMePage.module.css';
 
@@ -49,12 +50,8 @@ const AboutMePage: FC<AboutMePageProps> = ({
           className={styles.visualContentWrapper}
           data-is-neon={themeType === ThemeTypes.DARK}
           data-is-neon-animate={true}
+          style={{ background: `url(${myFoto}) top center / cover no-repeat` }}
         >
-          <img
-            className={styles.aboutMeImg}
-            src='https://firebasestorage.googleapis.com/v0/b/profile-website-23ec0.appspot.com/o/img%2F%D0%AF.jpg?alt=media&token=0feb956d-96d3-49f3-8ab5-73f534e5e35a'
-            alt=""
-          />
         </div>
       </div>
       <div className={styles.buttonWrapper}>

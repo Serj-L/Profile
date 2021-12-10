@@ -111,6 +111,7 @@ const ProjectCards: FC<ProjectCardsProps> = ({
               >
                 <div
                   className={styles.projectContentTogglerWrapper}
+                  data-is-up={activeProjectDetailsId !== project.id}
                 >
                   <div
                     className={styles.projectContentTogglerBtn}

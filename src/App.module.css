@@ -47,26 +47,21 @@
 }
 
 .headerLogo {
-  padding: 0.25rem;
-  border: 2px solid var(--clr-ui-hover);
-  border-radius: var(--radius);
   margin-right: 3rem;
+  border-radius: 50%;
   box-shadow: var(--shadow-sm);
 }
 
-.headerLogo,
-.headerLogo::before,
-.headerLogo::after {
-font-size: var(--fs-lg);
-font-weight: var(--fw-bold);
+.headerLogoImg {
+  display: block;
+  width: 60px;
+  aspect-ratio: 1;
+  line-height: 0;
+  transition: 0.5s;
 }
 
-.headerLogo::before {
-  content: '(';
-}
-
-.headerLogo::after {
-  content: ')';
+.headerLogo:hover .headerLogoImg {
+  transform: rotate(360deg);
 }
 
 /* Main section styles */
