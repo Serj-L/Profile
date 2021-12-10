@@ -1,4 +1,6 @@
 .burgerBtn {
+  --burger-transition-duration: 0.3s;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,12 +16,23 @@
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   z-index: 2;
+  transition: var(--burger-transition-duration) var(--burger-transition-delay);
+}
+
+.burgerBtn[data-is-active='false'] {
+  --burger-transition-delay: 1s;
+}
+
+.burgerBtn[data-is-active='true'] {
+  --burger-transition-delay: 1.3s;
+
+  border-color: var(--clr-danger);
 }
 
 .burgerBtnLine {
   height: 3px;
   background-color: var(--clr-ui-border);
-  transition: var(--transirion-duration);
+  transition: var(--burger-transition-duration) var(--burger-transition-delay);
 }
 
 .burgerBtnLine:nth-child(1) {
@@ -32,6 +45,24 @@
 
 .burgerBtnLine:nth-child(3) {
  width: 40%;
+}
+
+.burgerBtn[data-is-active='true'] .burgerBtnLine:nth-child(1),
+.burgerBtn[data-is-active='true'] .burgerBtnLine:nth-child(3) {
+  width: 70%;
+  background: var(--clr-danger);
+}
+
+.burgerBtn[data-is-active='true'] .burgerBtnLine:nth-child(1) {
+  transform: rotate(-40deg) translate(-30%, 55%);
+}
+
+.burgerBtn[data-is-active='true'] .burgerBtnLine:nth-child(2) {
+  transform: scale(0);
+}
+
+.burgerBtn[data-is-active='true'] .burgerBtnLine:nth-child(3) {
+  transform: rotate(40deg) translate(-30%, -65%);
 }
 
 @media (min-width: 769px) {

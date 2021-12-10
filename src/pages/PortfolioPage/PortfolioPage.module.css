@@ -8,10 +8,37 @@ overflow: hidden;
 
 .title {
   margin: 0;
+  animation: fadeDown 1s;
+}
+
+.projectsWrapper {
+  animation: fadeRight 1.2s ease-in-out;
 }
 
 @media (min-width: 769px) {
   .title {
     padding-block: 0.75rem;
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

@@ -22,33 +22,35 @@ const Modal: FC<ModalProps> = ({
     isModalActive ? document.body.style.overflowY = 'hidden' : document.body.style.overflowY = 'auto';
   }, [isModalActive]);
 
-  return isModalActive ?
-    (
-      <div className={styles.modalWrapper}>
-        <div
-          className={styles.modal}
-          data-is-accent={isAccent}
-        >
-          <div className={styles.modalHeader}>
-            <h3 className={styles.modalTitle}>{modalTitle}</h3>
-            <button
-              className={styles.btnClose}
-              onClick = {closeModalHandler}
-            >
+  return (
+    <div
+      className={styles.modalWrapper}
+      data-is-active={isModalActive}
+    >
+      <div
+        className={styles.modal}
+        data-is-accent={isAccent}
+      >
+        <div className={styles.modalHeader}>
+          <h3 className={styles.modalTitle}>{modalTitle}</h3>
+          <button
+            className={styles.btnClose}
+            onClick = {closeModalHandler}
+          >
               &times;
-            </button>
-          </div>
-          <div className={styles.modalContent}>
-            {children}
-          </div>
+          </button>
         </div>
-        <div
-          className={styles.modalLayout}
-          onClick = {closeModalHandler}
-        >
+        <div className={styles.modalContent}>
+          {children}
         </div>
       </div>
-    ) : null;
+      <div
+        className={styles.modalLayout}
+        onClick = {closeModalHandler}
+      >
+      </div>
+    </div>
+  );
 };
 
 export default Modal;

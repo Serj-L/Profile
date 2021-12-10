@@ -1,16 +1,23 @@
 .container {
   flex-grow: 1;
+
 }
 
 .contentWrapper {
   display: flex;
   justify-content: space-between;
   gap: 4rem;
+  animation: fadeRight 1.5s;
+}
+
+.title {
+  animation: fadeLeft 1s;
 }
 
 .text {
-  font-size: var(--fs-lg);
+  font-size: var(--fs-xl);
   margin: 0;
+
 }
 
 .visualContentWrapper {
@@ -69,6 +76,44 @@
   align-items: center;
   gap: 1.5rem;
   padding-top: 2rem;
+  animation: fadeUp 1.5s ease-out;
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30vh);
+  }
+  70% {
+    opacity: 0;
+    transform: translateY(20vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes neon {
