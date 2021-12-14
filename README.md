@@ -1,4 +1,4 @@
-# [Serj-L Profile Website] (https://serj-l.github.io/Profile/)
+# [Serj-L Profile Website](https://serj-l.github.io/Profile/)
 
 #### _My personal website-portfolio
 
