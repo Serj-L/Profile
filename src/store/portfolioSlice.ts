@@ -100,7 +100,6 @@ const portfolioSlice = createSlice({
           ? { ...project, isLiked: isLiked }
           : project;
       });
-      state.isLoading = false;
       isLiked ? likedProjects.add(projectId) : likedProjects.delete(projectId);
       localStorage.setItem(LocalStorageKeys.LIKEDPROJECTS, likedProjects.size ? JSON.stringify(Array.from(likedProjects)) : '');
     });

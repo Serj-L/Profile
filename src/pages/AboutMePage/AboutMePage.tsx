@@ -7,7 +7,6 @@ import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { getBlobFromDb } from '../../api/Firebase';
 
 import { Button } from '../../components';
-import myFoto from '../../images/MyFoto.png';
 
 import styles from './AboutMePage.module.css';
 
@@ -40,24 +39,15 @@ const AboutMePage: FC<AboutMePageProps> = ({
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Hi, my name is Sergei !</h1>
-      <div className={styles.contentWrapper}>
-        <p className={styles.text}>
-          I`m a passionate front-end developer with a great desire to implement existing experience and obtain a challenging position in a great company with a dream-team of super-duper professionals. I`m a hard-worker focused on achieving high-quality results with the ability to work in both self-starting and collaborative. I`m constantly self-educating to expend my knowledge base and improve developer skills.
-        </p>
-        <div
-          className={styles.visualContentWrapper}
-          data-is-neon={themeType === ThemeTypes.DARK}
-          data-is-neon-animate={true}
-          style={{ background: `url(${myFoto}) top center / cover no-repeat` }}
-        >
-        </div>
-      </div>
+    <div className={styles.contentWrapper}>
+      <h1 className={styles.title}>Hi, my <span className={styles.accentClrTxt}>name</span> is <span className={styles.mainClrTxt}>Sergei</span>.</h1>
+      <p className={styles.text}>
+          I`m a passionate <span className={styles.mainClrTxt}>front-end</span> <span className={styles.accentClrTxt}>developer</span> with a great desire to implement existing experience and obtain a challenging position in a great company with a dream-team of super-duper professionals. I`m a <span className={styles.gradientClrTxt}>hard-worker</span> focused on achieving <span className={styles.accentClrTxt}>high-quality</span> <span className={styles.mainClrTxt}>results</span> with the ability to work in both self-starting and collaborative. I`m constantly <span className={styles.gradientRevClrTxt}>self-educating</span> to expend my knowledge base and improve developer skills.
+      </p>
       <div className={styles.buttonWrapper}>
         <Button
           title={'Hire me!'}
-          fontSize={28}
+          fontSize={30}
           isAccent={true}
           isShadow={true}
           isTransparent={themeType === ThemeTypes.DARK}
@@ -66,7 +56,7 @@ const AboutMePage: FC<AboutMePageProps> = ({
         />
         <Button
           title={isCVLoading ? 'Downloading CV...' : 'Download my CV'}
-          fontSize={28}
+          fontSize={30}
           isAccent={true}
           isShadow={true}
           isTransparent={themeType === ThemeTypes.DARK}

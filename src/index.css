@@ -9,6 +9,7 @@
   --fs-lg: 22px;
   --fs-xl: 28px;
   --fs-xxl: 32px;
+  --fs-xxxl: 38px;
   --fw-light: 300;
   --fw-normal: 400;
   --fw-bold: 700;
@@ -33,9 +34,7 @@
   --clr-ui-hover-dark: hsl(236, 9%, 61%);
 
   --clr-gradient: linear-gradient(135deg, var(--clr-accent), var(--clr-main));
-
-  /* breakpoints */
-  --scr-md: 768px;
+  --clr-gradient-reverse: linear-gradient(270deg, var(--clr-accent), var(--clr-main));
 
   /* other */
   --radius: 6px;

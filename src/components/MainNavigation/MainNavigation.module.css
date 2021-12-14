@@ -73,7 +73,7 @@
     width: fit-content;
     height: fit-content;
     position: absolute;
-    top: 15px;
+    top: 25px;
     right: 85px;
     padding: 3em 2em;
     border-radius: var(--radius);
@@ -139,6 +139,13 @@
   .navList[data-is-active='false'] .navLinkItem,
   .navList[data-is-active='false'] .navButtonItem {
     transition: opacity 0.6s 0.3s, transform 0.6s 0.3s;
+  }
+}
+
+@media (max-width: 576px) {
+  .navList {
+    top: 15px;
+    right: 80px;
   }
 }
 

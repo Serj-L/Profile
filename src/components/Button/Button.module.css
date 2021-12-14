@@ -3,9 +3,9 @@
   min-width: 5.5em;
   font-family: var(--family);
   font-weight: var(--fw-bold);
-  line-height: 2;
+  line-height: 1;
   background-color: inherit;
-  padding: 0 0.5em;
+  padding: 0.5em;
   border-radius: var(--radius);
   border: 2px solid var(--clr-ui-border);
   cursor: pointer;

@@ -25,7 +25,14 @@ const ProjectCards: FC<ProjectCardsProps> = ({
   likeHandler,
 }) => {
   const [activeProjectDetailsId, setActiveProjectDetailsId] = useState<string>('');
+  const [likesProjectIdList, setLikesProjectIdList] = useState<Set<string>>(new Set());
 
+  const onLikeBtnClickHandler = (projectId: string, isLiked: boolean) => {
+    likeHandler(projectId, isLiked);
+    const likesProjects = new Set(likesProjectIdList);
+    likesProjects.has(projectId) ? likesProjects.delete(projectId) : likesProjects.add(projectId);
+    setLikesProjectIdList(likesProjects);
+  };
   const openProjectDetailsHandler = (projectId: string) => {
     activeProjectDetailsId === projectId ? setActiveProjectDetailsId('') : setActiveProjectDetailsId(projectId);
   };
@@ -66,8 +73,8 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                 <div className={styles.iconsWrapper}>
                   <div
                     className={styles.likeIconWrapper}
-                    data-is-liked={project.isLiked}
-                    onClick={() => likeHandler(project.id, !project.isLiked)}
+                    data-is-liked={project.isLiked || likesProjectIdList.has(project.id)}
+                    onClick={() => onLikeBtnClickHandler(project.id, !project.isLiked)}
                   >
                     {
                       project.isLiked

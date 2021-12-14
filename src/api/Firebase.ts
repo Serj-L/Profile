@@ -44,12 +44,7 @@ export const getBlobFromDb = async (filePath: string): Promise<Blob> => {
 
 export const getProjectsFromDb = async () => {
   const projects = await getDoc(doc(dataBase, 'portfolio', 'projects'));
-
   return projects.data()?.list;
-};
-
-export const setProjectsToDb = async (projects: IProjectsFromDb[]) => {
-  await setDoc(doc(dataBase, 'portfolio' , 'projects'), { list: projects } );
 };
 
 export const changeProjectLikeInDb = async (projectId: string, isLiked: boolean) => {

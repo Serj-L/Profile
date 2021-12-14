@@ -125,3 +125,17 @@
     padding: 1rem;
   }
 }
+
+@media (max-width: 576px) {
+  .headerContentWrapper {
+    padding: 0.5rem;
+  }
+
+  .headerLogoImg {
+    width: 50px;
+  }
+
+  .footer {
+    padding: 0.5rem;
+  }
+}
