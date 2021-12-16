@@ -54,22 +54,22 @@
 }
 
 .projectCard:hover,
-.projectCard:focus {
+.projectCard:focus-within {
   transform: rotateY(0deg);
 }
 
 .projectCard:first-child:hover,
-.projectCard:first-child:focus {
+.projectCard:first-child:focus-within {
   margin-left: 0;
 }
 
 .projectCard:not(:first-child):hover,
-.projectCard:not(:first-child):focus {
+.projectCard:not(:first-child):focus-within {
   box-shadow: -3rem 0.5rem 3rem -2.5rem rgba(0, 0, 0, 0.7);
 }
 
 .projectCard:not(:last-child):hover,
-.projectCard:not(:last-child):focus {
+.projectCard:not(:last-child):focus-within {
   margin-right: calc((var(--card-max-width) * 0.35) + 2px);
 }
 
@@ -163,18 +163,18 @@
 }
 
 .projectCard:hover .projectContentTogglerWrapper[data-is-up='false'] ,
-.projectCard:focus .projectContentTogglerWrapper[data-is-up='false'] {
+.projectCard:focus-within .projectContentTogglerWrapper[data-is-up='false'] {
   top: 10px;
 }
 
 .projectCard:hover .projectContentTogglerBtn[data-is-up='false'],
-.projectCard:focus .projectContentTogglerBtn[data-is-up='false'] {
+.projectCard:focus-within .projectContentTogglerBtn[data-is-up='false'] {
   transform: rotate(180deg);
   box-shadow: var(--shadow-negative-sm);
 }
 
 .projectCard:hover .projectContentControlsWrapper[data-is-visible='true'],
-.projectCard:focus .projectContentControlsWrapper[data-is-visible='true'] {
+.projectCard:focus-within .projectContentControlsWrapper[data-is-visible='true'] {
   transform: translateY(0);
 }
 

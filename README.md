@@ -1,6 +1,6 @@
 # [Serj-L Profile Website](https://serj-l.github.io/Profile/)
 
-#### _My personal website-portfolio
+#### My personal website-portfolio
 
 Website features:
 - About_Me page - on this page you can read general information about me, send me a job offer (button `Hire Me!`) or download my CV (button `Download my CV`) to contact me later;
