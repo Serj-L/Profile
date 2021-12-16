@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Profile/static/css/main.a773090c.chunk.css",
-    "main.js": "/Profile/static/js/main.0361cf27.chunk.js",
-    "main.js.map": "/Profile/static/js/main.0361cf27.chunk.js.map",
+    "main.css": "/Profile/static/css/main.6679070c.chunk.css",
+    "main.js": "/Profile/static/js/main.6d117eda.chunk.js",
+    "main.js.map": "/Profile/static/js/main.6d117eda.chunk.js.map",
     "runtime-main.js": "/Profile/static/js/runtime-main.942376e7.js",
     "runtime-main.js.map": "/Profile/static/js/runtime-main.942376e7.js.map",
     "static/js/2.c6635d0b.chunk.js": "/Profile/static/js/2.c6635d0b.chunk.js",
     "static/js/2.c6635d0b.chunk.js.map": "/Profile/static/js/2.c6635d0b.chunk.js.map",
     "index.html": "/Profile/index.html",
-    "static/css/main.a773090c.chunk.css.map": "/Profile/static/css/main.a773090c.chunk.css.map",
+    "static/css/main.6679070c.chunk.css.map": "/Profile/static/css/main.6679070c.chunk.css.map",
     "static/js/2.c6635d0b.chunk.js.LICENSE.txt": "/Profile/static/js/2.c6635d0b.chunk.js.LICENSE.txt",
     "static/media/AboutMePage.module.css": "/Profile/static/media/MyLogo.4ac67a2e.png",
     "static/media/file-image-regular.c1643162.svg": "/Profile/static/media/file-image-regular.c1643162.svg"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.942376e7.js",
     "static/js/2.c6635d0b.chunk.js",
-    "static/css/main.a773090c.chunk.css",
-    "static/js/main.0361cf27.chunk.js"
+    "static/css/main.6679070c.chunk.css",
+    "static/js/main.6d117eda.chunk.js"
   ]
 }
