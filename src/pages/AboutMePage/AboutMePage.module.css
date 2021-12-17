@@ -134,13 +134,13 @@
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 992px), (max-height: 800px) {
   .title {
-    padding: 1rem 0 2rem;
+    padding: 1rem 0 1.5rem;
   }
 
   .buttonWrapper {
-    padding: 4rem 0 0.75rem;
+    padding: 4rem 0 1rem;
   }
 }
 
@@ -159,7 +159,7 @@
   }
 
   .title {
-    padding: 0 0 2rem;
+    padding: 0 0 0.75rem;
     font-size: var(--fs-xxl);
     text-align: center;
     }
@@ -178,15 +178,5 @@
   .buttonWrapper {
     flex-direction: column;
     gap: 2rem;
-  }
-}
-
-@media (max-height: 800px) {
-  .title {
-    padding: 2rem 0;
-  }
-
-  .buttonWrapper {
-    padding: 4rem 0 0.75rem;
   }
 }

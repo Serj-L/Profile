@@ -29,7 +29,9 @@ const ProjectCards: FC<ProjectCardsProps> = ({
 
   const onLikeBtnClickHandler = (projectId: string, isLiked: boolean) => {
     likeHandler(projectId, isLiked);
+
     const likesProjects = new Set(likesProjectIdList);
+
     likesProjects.has(projectId) ? likesProjects.delete(projectId) : likesProjects.add(projectId);
     setLikesProjectIdList(likesProjects);
   };
@@ -59,13 +61,15 @@ const ProjectCards: FC<ProjectCardsProps> = ({
     <div className={styles.projectsContainer}>
       <div
         className={styles.projectsWrapper}
-        onWheel={e => onMouseWheelHandler(e)}
+        onWheel={(e) => onMouseWheelHandler(e)}
       >
         {
           projects.map((project) => (
             <div
               key={project.id}
               className={styles.projectCard}
+              data-is-card={true}
+              tabIndex={1}
               style={{ background: `url(${project.isMobilePreview ? project.previewMobileImgRef : project.previewImgRef}) ${project.isMobilePreview ? 'top left' : '25%'} / cover no-repeat, var(--clr-ui) url(${imgBlank}) center / 40% no-repeat ` }}
             >
               <div className={styles.projectCategory}>{project.category}</div>
@@ -74,7 +78,14 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                   <div
                     className={styles.likeIconWrapper}
                     data-is-liked={project.isLiked || likesProjectIdList.has(project.id)}
+                    tabIndex={1}
                     onClick={() => onLikeBtnClickHandler(project.id, !project.isLiked)}
+                    onMouseLeave={(e) => e.currentTarget.blur()}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        onLikeBtnClickHandler(project.id, !project.isLiked);
+                      }
+                    }}
                   >
                     {
                       project.isLiked
@@ -94,14 +105,22 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                   <div
                     className={styles.previewTypeIconWrapper}
                     data-is-mobile-preview={project.isMobilePreview}
+                    tabIndex={1}
                     onClick={() => changePreviewTypeHandler(project.id)}
+                    onMouseLeave={(e) => e.currentTarget.blur()}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        changePreviewTypeHandler(project.id);
+                      }
+                    }}
+                    onTouchStart={(e) => e.currentTarget.focus()}
                   >
                     {
                       project.isMobilePreview
                         ?
-                        <MobileIcon width={24}/>
-                        :
                         <DesktopIcon width={24}/>
+                        :
+                        <MobileIcon width={24}/>
                     }
                   </div>
                   <div
@@ -110,7 +129,6 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                     {project.isMobilePreview ? 'Switch to desktop preview' : 'Switch to mobile preview'}
                   </div>
                 </div>
-
               </div>
               <div
                 className={styles.projectContentControlsWrapper}
@@ -123,7 +141,14 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                   <div
                     className={styles.projectContentTogglerBtn}
                     data-is-up={activeProjectDetailsId !== project.id}
+                    tabIndex={1}
                     onClick={() => openProjectDetailsHandler(project.id)}
+                    onMouseLeave={(e) => e.currentTarget.blur()}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        openProjectDetailsHandler(project.id);
+                      }
+                    }}
                   >
                     <ShevronIcon width={24}/>
                   </div>
@@ -143,6 +168,7 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                       href={project.sourceCodeRef}
                       target="_blank"
                       rel="noreferrer"
+                      tabIndex={activeProjectDetailsId === project.id ? 1 : -1}
                     >
                       Source code
                     </a>
@@ -151,6 +177,7 @@ const ProjectCards: FC<ProjectCardsProps> = ({
                       href={project.demoRef}
                       target="_blank"
                       rel="noreferrer"
+                      tabIndex={activeProjectDetailsId === project.id ? 1 : -1}
                     >
                       Demo
                     </a>
