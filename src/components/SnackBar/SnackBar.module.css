@@ -23,6 +23,7 @@
 }
 
 .snackBarText {
+  text-align: center;
   color: var(--clr-text);
   margin: 0;
 }
